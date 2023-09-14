@@ -22,11 +22,20 @@ def make_searchlist():
 
 
 
-option = st.selectbox('종목을 선택하세요',
+placeholder = st.empty()
+col1, col2 = st.columns(2)
+with col1 :
+    option = st.selectbox('종목을 선택하세요',
                    make_searchlist(),
                    index = 1)
 
-placeholder = st.empty()
+
+with col2 : 
+    with st.expander("보조 지표 선택"):
+        bojo = st.multiselect("보조 지표",["MACD","RSI","모멘텀"])
+
+
+
 @st.cache_data(ttl=600)
 def run_query(query):
     df = pd.read_sql_query(query,con=conn)
@@ -39,7 +48,10 @@ df = df.astype({'clpr':int,'vs':int,'mkp':int,'hipr':int,'lopr':int,'trqu':int,'
 
 st.plotly_chart(candlechart.plot_candlestick(df, title = '주식 캔들 차트'))
 
-st.dataframe(df)
+
+st.dataframe(df.sort_values(by='basDt', ascending = False))
+
+
 
 placeholder.title(f'{option}')
 
