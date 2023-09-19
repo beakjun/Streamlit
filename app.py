@@ -31,6 +31,7 @@ with col1 :
 
 
 with col2 : 
+    st.write("")
     with st.expander("보조 지표 선택"):
         bojo = st.multiselect("보조 지표",["MACD","RSI","모멘텀"])
 
@@ -49,7 +50,7 @@ df = df.astype({'clpr':int,'vs':int,'mkp':int,'hipr':int,'lopr':int,'trqu':int,'
 st.plotly_chart(candlechart.plot_candlestick(df, title = '주식 캔들 차트'))
 
 
-st.dataframe(df.sort_values(by='basDt', ascending = False))
+st.dataframe(df.sort_values(by='basDt', ascending = False).head(20))
 
 
 
