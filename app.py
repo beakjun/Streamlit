@@ -27,6 +27,7 @@ def make_searchlist():
     return list(df['new'])
 
 
+
 # 검색 셀렉트 박스 & 보조지표 멀티박스
 placeholder = st.empty()
 col1, col2 = st.columns(2)
@@ -61,7 +62,25 @@ macd_df=indicators.df
 indicators.compute_rsi()
 rsi_df=indicators.df
 
-st.plotly_chart(candlechart.plot_candlestick(main_df, title = '주식 캔들 차트'))
+placeholder1 = st.empty()
+
+
+datelist=sorted(list(main_df['basDt']))
+
+if 'select_slider' not in st.session_state:
+    st.session_state.slider_value=(min(datelist),max(datelist))
+
+start_date, end_date = st.select_slider(
+    'Select a range of Date',
+    options=datelist,
+    value=st.session_state.slider_value
+)
+
+st.session_state.slider_value = (start_date,end_date)
+
+st.write(st.session_state)
+
+placeholder1.plotly_chart(candlechart.plot_candlestick(main_df, title = '주식 캔들 차트'))
 
 if 'MACD' in bojo:
     st.write('Show MACD Chart')
