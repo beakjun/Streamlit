@@ -78,7 +78,7 @@ start_date, end_date = st.select_slider(
 
 st.session_state.slider_value = (start_date,end_date)
 
-st.write(st.session_state)
+st.write(st.session_state) ### 공부좀 해야될듯
 
 placeholder1.plotly_chart(candlechart.plot_candlestick(main_df, title = '주식 캔들 차트'))
 
