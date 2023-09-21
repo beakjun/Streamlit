@@ -1,7 +1,8 @@
 import plotly.graph_objects as go
 import streamlit as st
 
-def plot_candlestick(data,title=""):
+def plot_candlestick(df,title=""):
+    data=df.copy()
     fig = go.Figure(data=[go.Candlestick(
         x = data['basDt'],
         open=data['mkp'],
@@ -38,9 +39,15 @@ def plot_candlestick(data,title=""):
             t=50  #top margin
         ),
         width=800)
-    num_points_to_display = 90  # 표시하려는 데이터 포인트 수
+    num_points_to_display = 365  # 표시하려는 데이터 포인트 수
     fig.update_layout(xaxis_range=[data['basDt'].iloc[-num_points_to_display], data['basDt'].iloc[-1]])
+
+    fig.update_yaxes(autorange=True)
+
+    # fig.update_layout(yaxis_range=[min(data['lopr'].iloc[-num_points_to_display:]),max(data['hipr'].iloc[-num_points_to_display:])])
+
     fig.update_layout(yaxis_fixedrange=False)
     # fig.update_layout(xaxis_rangeslider_visible=False)
-    fig.update_xaxes(rangebreaks=[dict(bounds=["sat","mon"])])
+
+    fig.update_xaxes(rangebreaks=[dict(bounds=["sat","mon"])]) ### 주말제거
     return fig
