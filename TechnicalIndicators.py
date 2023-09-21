@@ -1,6 +1,5 @@
 import plotly.graph_objects as gop
 import streamlit as st
-
 import pandas as pd
 import numpy as np
 import psycopg2
@@ -11,6 +10,7 @@ class TechnicalIndicators:
 
     def preprocess_data(self):
         self.df['basDt'] = pd.to_datetime(self.df['basDt'], format='%Y%m%d')
+        self.df['basDt'] = self.df['basDt'].apply(lambda x:x.date())
         self.df['fltRt']=self.df['fltRt'].astype(float)
         self.df = self.df.astype({'clpr':int,'vs':int,'mkp':int,'hipr':int,'lopr':int,'trqu':int,'trPrc':int,'clpr':int,'lstgStCnt':int,'mrktTotAmt':int,})
         self.df = self.df.sort_values(by=['basDt'])
