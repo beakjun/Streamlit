@@ -38,9 +38,13 @@ with col1 :
 
 
 with col2 : 
-    st.write("")
-    with st.expander("보조 지표 선택"):
-        bojo = st.multiselect("보조 지표",["MACD","RSI","모멘텀"])
+    st.write('보조 지표')
+    col11,col_gap1,col22=st.columns([0.05,0.0001,0.05])
+    
+    with col11:
+        macd=st.checkbox("MACD")
+    with col22:
+        rsi=st.checkbox("RSI")
 
 
 ### 검색 결과 데이터 프레임 생성 
@@ -57,39 +61,14 @@ indicators.preprocess_data()
 main_df=indicators.df.copy()
 
 indicators.compute_macd()
-macd_df=indicators.df
 
 indicators.compute_rsi()
 rsi_df=indicators.df
 
 placeholder1 = st.empty()
 
+placeholder1.plotly_chart(candlechart.plot_candlestick(rsi_df, '주식 캔들 차트',macd,rsi))
 
-datelist=sorted(list(main_df['basDt']))
-
-if 'select_slider' not in st.session_state:
-    st.session_state.slider_value=(min(datelist),max(datelist))
-
-start_date, end_date = st.select_slider(
-    'Select a range of Date',
-    options=datelist,
-    value=st.session_state.slider_value
-)
-
-st.session_state.slider_value = (start_date,end_date)
-
-st.write(st.session_state) ### 공부좀 해야될듯
-
-placeholder1.plotly_chart(candlechart.plot_candlestick(main_df, title = '주식 캔들 차트'))
-
-if 'MACD' in bojo:
-    st.write('Show MACD Chart')
-if 'RSI' in bojo:
-    st.write('Show RSI Chart')
-
-st.dataframe(main_df.sort_values(by='basDt', ascending = False).head(20))
-
-
-placeholder.title(f'{option}')
+placeholder.title(f'{option.split()[0]} 일별 주가') # 종목이름으로 타이틀
 
 
