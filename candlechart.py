@@ -107,8 +107,10 @@ def plot_candlestick(df,title,macd=False,rsi=False):
         ),
         width=700,height=900)
     num_points_to_display = 365  # 표시하려는 데이터 포인트 수
-    fig.update_xaxes(range=[data['basDt'].iloc[-num_points_to_display],data['basDt'].iloc[-1]])
-
+    if len(data)>=365:
+        fig.update_xaxes(range=[data['basDt'].iloc[-num_points_to_display],data['basDt'].iloc[-1]])
+    else :
+        pass
     fig.update_yaxes(autorange=True)
 
     # fig.update_layout(yaxis_range=[min(data['lopr'].iloc[-num_points_to_display:]),max(data['hipr'].iloc[-num_points_to_display:])])
