@@ -22,7 +22,7 @@ button[title="View fullscreen"]{
 '''
 st.markdown(hide_img_fs, unsafe_allow_html=True)
 
-# 검색 셀레트 박스에 들어가는 리스트 생성
+# 검색 셀레트 박스에 들어가는 리스트 생성1
 @st.cache_data()
 def make_searchlist():
     query='select distinct "itmsNm","srtnCd" from stockprice_info.kosdaq_stockprice_info order by "srtnCd"'

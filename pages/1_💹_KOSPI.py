@@ -13,7 +13,7 @@ def init_connection():
 
 #conn = init_connection()
 
-### 그래프 크게 보기 표시 제거
+### 그래프 크게 보기 표시 제거#1
 hide_img_fs = '''
 <style>
 button[title="View fullscreen"]{
