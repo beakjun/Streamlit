@@ -34,9 +34,13 @@ def make_searchlist():
 # 검색 셀렉트 박스 & 보조지표 멀티박스
 placeholder = st.empty()
 
-option = st.selectbox('종목을 선택하세요',
+col1,colgap1,col2,colgap2,col3=st.columns([1,0.2,1,0.2,1])
+
+
+option = col1.selectbox('종목을 선택하세요',
                 make_searchlist(),
                 index = 1)
+
 
 
 
@@ -66,9 +70,10 @@ indicators.compute_macd()
 indicators.compute_rsi()
 rsi_df=indicators.df
 
+
 placeholder1 = st.empty()
 
-placeholder1.plotly_chart(candlechart.plot_candlestick(rsi_df, '주식 캔들 차트',macd,rsi),use_container_width=True)
+placeholder1.plotly_chart(candlechart.plot_candlestick(rsi_df, '주식 캔들 차트',macd,rsi))use_container_width=True)
 
 
 
